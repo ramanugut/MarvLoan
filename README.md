@@ -1,12 +1,26 @@
 # MarvLoan
 
-MarvLoan is a placeholder project repository.
+This repository contains the initial scaffolding for the **MarvLoan** project.
+It includes configuration for Firebase and a minimal Node.js setup. Further
+modules and source code will be added over time.
 
-This repository currently contains minimal setup files and will be expanded in the future.
+## Contents
+- `firebase.json` – Firebase services configuration
+- `.firebaserc` – Firebase project aliases
+- `package.json` – Node.js tooling and scripts
+- `scripts/` – placeholder directory for build or deployment scripts
 
 ## Getting Started
-
-Clone the repository and modify as needed for your projects.
+1. Install the Firebase CLI and project dependencies:
+   ```bash
+   npm install -g firebase-tools
+   npm install
+   ```
+2. Initialize Firebase if you haven't already:
+   ```bash
+   firebase use --add
+   ```
+3. Run any local development tools with `npm start` (currently a placeholder).
 
 ## License
 
