@@ -20,7 +20,11 @@ modules and source code will be added over time.
    ```bash
    firebase use --add
    ```
-3. Run any local development tools with `npm start` (currently a placeholder).
+3. Start the React development server:
+   ```bash
+   npm start
+   ```
+   This uses [Vite](https://vitejs.dev/) to serve the code in `app/`.
 
 ## License
 
