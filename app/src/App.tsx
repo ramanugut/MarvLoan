@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// Import Login page from the correct location
 import Login from './features/auth/Login';
 
 function App() {
