@@ -1,0 +1,23 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "forgot": "Forgot Password",
+    "invalid": "Invalid email or password.",
+
+    "emailRequired": "Please enter a valid email and password (min 8 characters).",
+
+    "resetSent": "Password reset link sent to your email.",
+    "resetFailed": "Failed to send reset email.",
+    "enterValidEmail": "Please enter a valid email to reset password."
+  },
+  "noAccess": {
+    "title": "No Access",
+    "message": "You do not have permission to view this page."
+  },
+  "userList": {
+    "title": "User List"
+  }
+}
