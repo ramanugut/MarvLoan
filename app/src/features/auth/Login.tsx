@@ -10,6 +10,9 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const [loading, setLoading] = useState(false);
+
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -20,10 +23,16 @@ const Login: React.FC = () => {
       setError(t('login.emailRequired'));
       return;
     }
+
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate('/admin/users');
     } catch (err) {
       setError(t('login.invalid'));
+    } finally {
+      setLoading(false);
+
     }
   };
 
@@ -52,7 +61,11 @@ const Login: React.FC = () => {
             minLength={8}
           />
         </div>
-        <button type="submit">{t('login.login')}</button>
+
+        <button type="submit" disabled={loading || !emailRegex.test(email) || password.trim().length < 8}>
+          {t('login.login')}
+        </button>
+
       </form>
       <button type="button" onClick={() => navigate('/forgot-password')}>{t('login.forgot')}</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
