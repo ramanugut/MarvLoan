@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -8,67 +10,52 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setMessage('');
-    if (!emailRegex.test(email) || password.trim() === '') {
-      setError('Please enter a valid email and password.');
+    if (!emailRegex.test(email) || password.trim().length < 8) {
+      setError(t('login.emailRequired'));
       return;
     }
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // success logic can be added here
     } catch (err) {
-      setError('Invalid email or password.');
-    }
-  };
-
-  const handleForgotPassword = async () => {
-    setError('');
-    setMessage('');
-    if (!emailRegex.test(email)) {
-      setError('Please enter a valid email to reset password.');
-      return;
-    }
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setMessage('Password reset link sent to your email.');
-    } catch (err) {
-      setError('Failed to send reset email.');
+      setError(t('login.invalid'));
     }
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>{t('login.title')}</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">{t('login.email')}</label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">{t('login.password')}</label>
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={8}
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">{t('login.login')}</button>
       </form>
-      <button onClick={handleForgotPassword}>Forgot Password</button>
+      <button type="button" onClick={() => navigate('/forgot-password')}>{t('login.forgot')}</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {message && <p>{message}</p>}
     </div>
   );
 };
